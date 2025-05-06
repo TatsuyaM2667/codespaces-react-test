@@ -5,8 +5,6 @@ const ShootingGame = () => {
   const canvasRef = useRef(null);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-  const [lives, setLives] = useState(3); // ライフを追加
-
   
   // ゲーム状態を保持するRef
   const gameStateRef = useRef({
@@ -127,7 +125,7 @@ const ShootingGame = () => {
         config.playerSize
       );
 
-// ...exi
+// ...existing code...
 // ゲームオーバー判定
 const gameOverCheck = enemies.some(enemy => {
   if (enemy.y + config.enemySize > config.height - 100) {
@@ -271,6 +269,7 @@ if (gameOverCheck) {
     </div>
   );
 };
+const [lives, setLives] = useState(3); // ライフを追加
 
 export default ShootingGame;
 
