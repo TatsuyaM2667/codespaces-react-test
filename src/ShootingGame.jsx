@@ -227,12 +227,7 @@ const ShootingGame = () => {
     canvas.addEventListener('touchstart', handleDragStart);
     canvas.addEventListener('touchmove', handleDragMove);
     canvas.addEventListener('touchend', handleDragEnd);
-<canvas 
-  ref={canvasRef} 
-  onClick={createBullet} 
-  onTouchStart={createBullet} // タップ操作に対応
-  className="border-2 border-gray-300 touch-none"
-/>
+
     // クリーンアップ関数
     return () => {
       // アニメーションフレームをキャンセル
@@ -399,11 +394,12 @@ const ShootingGame = () => {
         <p>スコア: {score}</p>
         {gameOver && <div>ゲームオーバー！クリックでリスタート<button onClick={handleShare}>シェア！</button></div>}
         </div>
-      <canvas 
-        ref={canvasRef} 
-        onClick={createBullet}
-        className="border-2 border-gray-300 touch-none"
-      />
+        <canvas 
+  ref={canvasRef} 
+  onClick={createBullet}
+  onTouchStart={createBullet} // タップ操作に対応
+  className="border-2 border-gray-300 touch-none"
+/>
       <p className="mt-2 text-sm text-gray-600">
         プレイヤーをドラッグまたはタッチして移動、クリックで弾を撃つ
       </p>
