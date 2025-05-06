@@ -227,7 +227,12 @@ const ShootingGame = () => {
     canvas.addEventListener('touchstart', handleDragStart);
     canvas.addEventListener('touchmove', handleDragMove);
     canvas.addEventListener('touchend', handleDragEnd);
-
+<canvas 
+  ref={canvasRef} 
+  onClick={createBullet} 
+  onTouchStart={createBullet} // タップ操作に対応
+  className="border-2 border-gray-300 touch-none"
+/>
     // クリーンアップ関数
     return () => {
       // アニメーションフレームをキャンセル
