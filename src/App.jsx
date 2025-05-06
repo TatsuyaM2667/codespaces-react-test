@@ -22,7 +22,11 @@ function App() {
   return (
     <div className="App">
       {name && <p>こんにちは、{name}さん</p>}
+<<<<<<< HEAD
       <ShootingGame />  
+=======
+      <ShootingGame />  <!-- 追記 -->
+>>>>>>> e3c5ccadee979ac6d6bcab8125326726f653065d
     </div>
   );
 }
