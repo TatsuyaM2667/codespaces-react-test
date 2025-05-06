@@ -56,8 +56,9 @@ const ShootingGame = () => {
     const gameLoop = () => {
       const { player, enemies, bullets, config, ctx } = gameStateRef.current;
 
-      ctx.clearRect(0, 0, config.width, config.height);
-
+      ctx.fillStyle = '#87CEEB'; // 海のような青色
+      ctx.fillRect(0, 0, config.width, config.height);
+    
       // 敵の生成と移動
       if (Math.random() < 0.03) createEnemy();
       
