@@ -362,7 +362,7 @@ const handleShare = () => {
                 "contents": [
                   {
                     "type": "image",
-                    "url": "https://raw.githubusercontent.com/himanago/miniapp-handson/refs/heads/main/game_icon.png",
+                    "url": "https://raw.githubusercontent.com/Tatsuya_M2667/codespaces-react-test/refs/heads/main/514B81DB-8932-442D-B110-7B6B57F639D8.png",
                     "flex": 1,
                     "gravity": "center"
                   },
