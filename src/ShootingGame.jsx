@@ -59,7 +59,7 @@ const ShootingGame = () => {
       ctx.clearRect(0, 0, config.width, config.height);
 
       // 敵の生成と移動
-      if (Math.random() < 0.03) createEnemy();
+      if (Math.random() < 0.01) createEnemy();
       
       // 弾丸と敵の当たり判定をここに移動
       for (let i = bullets.length - 1; i >= 0; i--) {
@@ -91,7 +91,7 @@ const ShootingGame = () => {
       // 敵の移動と画面外チェック
       for (let i = enemies.length - 1; i >= 0; i--) {
         const enemy = enemies[i];
-        enemy.y += 3;
+        enemy.y += 1;
         
         ctx.fillStyle = config.enemyColor;
         ctx.fillRect(enemy.x, enemy.y, config.enemySize, config.enemySize);
