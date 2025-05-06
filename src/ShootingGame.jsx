@@ -125,18 +125,21 @@ const ShootingGame = () => {
         config.playerSize
       );
 
-      // ゲームオーバー判定
-      const gameOverCheck = enemies.some(enemy => 
-        enemy.y + config.enemySize > config.height - 100
-      );
+// ...existing code...
+// ゲームオーバー判定
+const gameOverCheck = enemies.some(enemy => {
+  if (enemy.y + config.enemySize > config.height - 100) {
+    enemies.splice(enemies.indexOf(enemy), 1); // 敵を削除
+    setLives(prevLives => prevLives - 1); // ライフを減らす
+    return lives - 1 <= 0; // ライフが 0 以下ならゲームオーバー
+  }
+  return false;
+});
 
-      if (gameOverCheck) {
-        setGameOver(true);
-      } else {
-        // アニメーションフレームIDを保存
-        gameStateRef.current.animationFrameId = requestAnimationFrame(gameLoop);
-      }
-    };
+if (gameOverCheck) {
+  setGameOver(true);
+}
+};
 
     // キャンバスサイズ設定
     canvas.width = config.width;
@@ -251,6 +254,8 @@ const ShootingGame = () => {
       <div className="mb-4">
         <h2 className="text-xl font-bold">クリックシューティングゲーム</h2>
         <p>スコア: {score}</p>
+        <p>ライフ: {lives}</p> {/* ライフを表示 */}
+        <p>スコア: {score}</p>
         {gameOver && <div>ゲームオーバー！クリックでリスタート<button onClick={handleShare}>シェア！</button></div>}
         </div>
       <canvas 
@@ -264,6 +269,7 @@ const ShootingGame = () => {
     </div>
   );
 };
+const [lives, setLives] = useState(3); // ライフを追加
 
 export default ShootingGame;
 
