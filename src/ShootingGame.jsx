@@ -32,8 +32,8 @@ const ShootingGame = () => {
       playerColor: '#4CAF50',
       enemyColor: '#F44336',
       bulletColor: '#2196F3',
-      playerImageSrc: '/player-image.png', // プレイヤー画像のパス
-      enemyImageSrc: '/enemy-image.png',   // 敵画像のパス
+      playerImageSrc: '/player-image.PNG', // プレイヤー画像のパス
+      enemyImageSrc: '/enemy-image.PNG',   // 敵画像のパス
     
     };
 
