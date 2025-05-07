@@ -87,6 +87,25 @@ const ShootingGame = () => {
         // 敵の画面外チェック
         if (enemy.y > config.height) {
           enemies.splice(i, 1);
+          continue;
+        }
+    
+        // 弾との衝突判定
+        for (let j = bullets.length - 1; j >= 0; j--) {
+          const bullet = bullets[j];
+          const isHit =
+            bullet.x < enemy.x + config.enemySize &&
+            bullet.x + config.bulletSize > enemy.x &&
+            bullet.y < enemy.y + config.enemySize &&
+            bullet.y + config.bulletSize > enemy.y;
+    
+          if (isHit) {
+            // 衝突した場合、敵と弾を削除
+            enemies.splice(i, 1);
+            bullets.splice(j, 1);
+            setScore((prevScore) => prevScore + 1); // スコアを加算
+            break;
+          }
         }
       }
     
@@ -116,8 +135,7 @@ const ShootingGame = () => {
       } else {
         gameStateRef.current.animationFrameId = requestAnimationFrame(gameLoop);
       }
-    };
-    
+    };    
     // キャンバスサイズ設定
     canvas.width = config.width;
     canvas.height = config.height;
