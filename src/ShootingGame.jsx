@@ -218,17 +218,6 @@ const ShootingGame = () => {
 
   // コンポーネントマウント時にゲーム初期化とイベントリスナー追加
   useEffect(() => {
-    const initializeLiff = async () => {
-      try {
-        await liff.init({ liffId: '2007367473-2nQvojr6' }); // LIFF IDを設定
-        console.log('LIFF initialized');
-      } catch (error) {
-        console.error('LIFF initialization failed', error);
-      }
-    };
-  
-    initializeLiff();
-  
     initGame();
     const canvas = canvasRef.current;
 
