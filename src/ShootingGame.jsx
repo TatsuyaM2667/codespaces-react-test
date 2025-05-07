@@ -34,7 +34,8 @@ const ShootingGame = () => {
       bulletColor: '#2196F3',
       playerImageSrc: '/player-image.PNG', // プレイヤー画像のパス
       enemyImageSrc: '/enemy-image.PNG',   // 敵画像のパス
-    
+      backgroundImageSrc: '/background-image.PNG', // 背景画像のパス
+
     };
 
       // 画像の読み込み
@@ -43,6 +44,10 @@ const ShootingGame = () => {
 
   const enemyImage = new Image();
   enemyImage.src = config.enemyImageSrc;
+
+  const backgroundImage = new Image();
+  backgroundImage.src = config.backgroundImageSrc;
+
 
 
     // ゲーム状態の更新
@@ -72,7 +77,8 @@ const ShootingGame = () => {
       ctx.clearRect(0, 0, config.width, config.height); // キャンバスをクリア
       ctx.fillStyle = '#87CEEB'; // 背景色
       ctx.fillRect(0, 0, config.width, config.height);
-    
+      ctx.drawImage(backgroundImage, 0, 0, config.width, config.height);
+
       // 敵の生成と移動
       if (Math.random() < 0.03) createEnemy();
     
