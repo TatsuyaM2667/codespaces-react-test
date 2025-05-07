@@ -1,10 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import liff from '@line/liff'
 
-import playerImageSrc from './assets/player-image.png';
-import enemyImageSrc from './assets/enemy-image.png';
-import backgroundImageSrc from './assets/background-image.png';
-
 const ShootingGame = () => {
   const canvasRef = useRef(null);
   const [score, setScore] = useState(0);
@@ -36,22 +32,22 @@ const ShootingGame = () => {
       playerColor: '#4CAF50',
       enemyColor: '#F44336',
       bulletColor: '#2196F3',
-      playerImageSrc: playerImageSrc, // インポートした画像を使用
-      enemyImageSrc: enemyImageSrc,   // インポートした画像を使用
-      backgroundImageSrc: backgroundImageSrc, // インポートした画像を使用
+      playerImageSrc: '/player-image.PNG', // プレイヤー画像のパス
+      enemyImageSrc: '/enemy-image.PNG',   // 敵画像のパス
+      backgroundImageSrc: '/background-image.PNG', // 背景画像のパス
 
     };
 
       // 画像の読み込み
-      const playerImage = new Image();
-      playerImage.src = config.playerImageSrc;
-  
-      const enemyImage = new Image();
-      enemyImage.src = config.enemyImageSrc;
-  
-      const backgroundImage = new Image();
-      backgroundImage.src = config.backgroundImageSrc;
-  
+  const playerImage = new Image();
+  playerImage.src = config.playerImageSrc;
+
+  const enemyImage = new Image();
+  enemyImage.src = config.enemyImageSrc;
+
+  const backgroundImage = new Image();
+  backgroundImage.src = config.backgroundImageSrc;
+
 
 
     // ゲーム状態の更新
