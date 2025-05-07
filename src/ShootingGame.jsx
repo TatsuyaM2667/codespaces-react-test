@@ -31,18 +31,31 @@ const ShootingGame = () => {
       bulletSize: 10,
       playerColor: '#4CAF50',
       enemyColor: '#F44336',
-      bulletColor: '#2196F3'
+      bulletColor: '#2196F3',
+      playerImageSrc: '/player-image.png', // プレイヤー画像のパス
+      enemyImageSrc: '/enemy-image.png',   // 敵画像のパス
+    
     };
 
+      // 画像の読み込み
+  const playerImage = new Image();
+  playerImage.src = config.playerImageSrc;
+
+  const enemyImage = new Image();
+  enemyImage.src = config.enemyImageSrc;
+
+
     // ゲーム状態の更新
-    gameStateRef.current = {
-      player: { x: config.width / 2, y: config.height - 100 },
-      enemies: [],
-      bullets: [],
-      config: config,
-      ctx: ctx,
-      isDragging: false,
-      animationFrameId: null
+  gameStateRef.current = {
+    player: { x: config.width / 2, y: config.height - 100 },
+    enemies: [],
+    bullets: [],
+    config: config,
+    ctx: ctx,
+    playerImage: playerImage,
+    enemyImage: enemyImage,
+    isDragging: false,
+    animationFrameId: null
     };
 
     // 敵の生成
@@ -54,91 +67,57 @@ const ShootingGame = () => {
 
     // ゲームループ
     const gameLoop = () => {
-      const { player, enemies, bullets, config, ctx } = gameStateRef.current;
-
-      ctx.fillStyle = '#87CEEB'; // 海のような青色
+      const { player, enemies, bullets, config, ctx, playerImage, enemyImage } = gameStateRef.current;
+    
+      ctx.clearRect(0, 0, config.width, config.height); // キャンバスをクリア
+      ctx.fillStyle = '#87CEEB'; // 背景色
       ctx.fillRect(0, 0, config.width, config.height);
     
       // 敵の生成と移動
       if (Math.random() < 0.03) createEnemy();
-      
-      // 弾丸と敵の当たり判定をここに移動
-      for (let i = bullets.length - 1; i >= 0; i--) {
-        for (let j = enemies.length - 1; j >= 0; j--) {
-          const bullet = bullets[i];
-          const enemy = enemies[j];
-          
-          if (
-            bullet &&
-            enemy &&
-            bullet.x < enemy.x + config.enemySize &&
-            bullet.x + config.bulletSize > enemy.x &&
-            bullet.y < enemy.y + config.enemySize &&
-            bullet.y + config.bulletSize > enemy.y
-          ) {
-            // 敵と弾丸を削除
-            enemies.splice(j, 1);
-            bullets.splice(i, 1);
-            
-            // スコア更新
-            setScore(prevScore => prevScore + 1);
-            
-            // ループを抜ける（1つの弾丸は1体の敵にのみ当たる）
-            break;
-          }
-        }
-      }
-
-      // 敵の移動と画面外チェック
+    
+      // 敵の描画
       for (let i = enemies.length - 1; i >= 0; i--) {
         const enemy = enemies[i];
         enemy.y += 1;
-        
-        ctx.fillStyle = config.enemyColor;
-        ctx.fillRect(enemy.x, enemy.y, config.enemySize, config.enemySize);
-
+    
+        // 敵を画像で描画
+        ctx.drawImage(enemyImage, enemy.x, enemy.y, config.enemySize, config.enemySize);
+    
         // 敵の画面外チェック
         if (enemy.y > config.height) {
           enemies.splice(i, 1);
         }
       }
-
-      // 弾丸の移動と画面外チェック
+    
+      // 弾丸の描画
       for (let i = bullets.length - 1; i >= 0; i--) {
         const bullet = bullets[i];
         bullet.y -= 5;
-        
+    
         ctx.fillStyle = config.bulletColor;
         ctx.fillRect(bullet.x, bullet.y, config.bulletSize, config.bulletSize);
-
-        // 弾丸の画面外チェック
+    
         if (bullet.y < 0) {
           bullets.splice(i, 1);
         }
       }
-
-      // プレイヤーの描画
-      ctx.fillStyle = config.playerColor;
-      ctx.fillRect(
-        player.x, 
-        player.y, 
-        config.playerSize, 
-        config.playerSize
-      );
-
+    
+      // プレイヤーを画像で描画
+      ctx.drawImage(playerImage, player.x, player.y, config.playerSize, config.playerSize);
+    
       // ゲームオーバー判定
-      const gameOverCheck = enemies.some(enemy => 
+      const gameOverCheck = enemies.some(enemy =>
         enemy.y + config.enemySize > config.height - 100
       );
-
+    
       if (gameOverCheck) {
         setGameOver(true);
       } else {
-        // アニメーションフレームIDを保存
         gameStateRef.current.animationFrameId = requestAnimationFrame(gameLoop);
       }
     };
-
+    
     // キャンバスサイズ設定
     canvas.width = config.width;
     canvas.height = config.height;
